@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
+    <script>
+  const storedUTMs = JSON.parse(localStorage.getItem('utm_lead') || '{}');
+  const url = new URL(window.location.href);
+  let modified = false;
+
+  for (const key in storedUTMs) {
+    if (!url.searchParams.has(key)) {
+      url.searchParams.set(key, storedUTMs[key]);
+      modified = true;
+    }
+  }
+
+  if (modified) {
+    history.replaceState(null, '', url.toString());
+  }
+</script>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Parabéns! Viva Sorte</title>
