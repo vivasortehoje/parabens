@@ -144,6 +144,28 @@
       document.getElementById('main').style.display = 'block';
     }, 3000);
   </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const utms = JSON.parse(localStorage.getItem("utm_lead") || "{}");
+
+    // LINKS DA PÁGINA DE PARABÉNS
+    const links = document.querySelectorAll(".btn");
+
+    links.forEach((link) => {
+      if (!link.href) return;
+
+      const url = new URL(link.href);
+
+      for (const key in utms) {
+        if (!url.searchParams.has(key)) {
+          url.searchParams.set(key, utms[key]);
+        }
+      }
+
+      link.href = url.toString();
+    });
+  });
+</script>
 
 </body>
 </html>
